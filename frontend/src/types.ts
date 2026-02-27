@@ -1,6 +1,10 @@
-/* ── Domain types matching backend Pydantic schemas ── */
+/* -- Domain types matching backend Pydantic schemas -- */
 
-// ── Experiments ────────────────────────────────────────────────────
+// -- AI Provider ----------------------------------------------------
+
+export type AIProvider = 'gemini' | 'claude';
+
+// -- Experiments ----------------------------------------------------
 
 export interface Experiment {
   id: number;
@@ -21,7 +25,20 @@ export interface ExperimentCreate {
   render_settings?: Record<string, unknown> | null;
 }
 
-// ── Conditions ─────────────────────────────────────────────────────
+// -- Reference Images (no slot targeting -- ordered list only) ------
+
+export type RefCategory = 'character' | 'object' | 'world';
+
+export interface RefRecommendation {
+  asset_id: number;
+  role_guess: string;
+  likely_category: RefCategory;
+  confidence: number;
+  position: number;
+  note: string | null;
+}
+
+// -- Conditions -----------------------------------------------------
 
 export interface Condition {
   id: number;
@@ -38,7 +55,13 @@ export interface ConditionCreate {
   upload_plan?: number[] | null;
 }
 
-// ── Assets ─────────────────────────────────────────────────────────
+export interface ConditionUpdate {
+  name?: string;
+  prompt?: string;
+  upload_plan?: number[] | null;
+}
+
+// -- Assets ---------------------------------------------------------
 
 export interface AssetQC {
   id: number;
@@ -61,7 +84,7 @@ export interface Asset {
   qc: AssetQC | null;
 }
 
-// ── Runs ───────────────────────────────────────────────────────────
+// -- Runs -----------------------------------------------------------
 
 export type RunStatus = 'queued' | 'running' | 'succeeded' | 'failed';
 
@@ -89,7 +112,7 @@ export interface Run {
   telemetry: RunTelemetry | null;
 }
 
-// ── Scores ─────────────────────────────────────────────────────────
+// -- Scores ---------------------------------------------------------
 
 export interface Score {
   id: number;
@@ -112,11 +135,52 @@ export interface ScoreCreate {
   notes?: string | null;
 }
 
-// ── Export ──────────────────────────────────────────────────────────
+// -- Export ----------------------------------------------------------
 
 export interface ExportResult {
   bundle_path: string;
   run_count: number;
   scored_count: number;
   telemetry_included: boolean;
+}
+
+// -- Hypothesis Advisor ---------------------------------------------
+
+export interface AdvisorQuestion {
+  id: string;
+  question: string;
+  why: string | null;
+  options: string[] | null;
+}
+
+export interface AdvisorQuestionsResponse {
+  experiment_id: number;
+  hypothesis: string;
+  questions: AdvisorQuestion[];
+}
+
+export interface QuestionAnswer {
+  question: string;
+  answer: string;
+}
+
+export interface SuggestedCondition {
+  name: string;
+  prompt: string;
+  rationale: string | null;
+  upload_plan: number[] | null;
+  ref_strategy: string | null;
+}
+
+export interface AdvisorSuggestResponse {
+  experiment_id: number;
+  conditions: SuggestedCondition[];
+}
+
+// -- Upload-Order Permutations --------------------------------------
+
+export interface PermuteOrdersResponse {
+  experiment_id: number;
+  created_count: number;
+  conditions: SuggestedCondition[];
 }

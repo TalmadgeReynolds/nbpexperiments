@@ -1,0 +1,78 @@
+{
+  "experiment_name": "Best 5th View",
+  "hypothesis": "If I upload  Front, back, left, and right, views, of my character, but what is the most impactful 5th view? I assume a \u00be of one side. But could there be a more impactful fifth image?",
+  "model": "gemini-3-pro-image-preview",
+  "telemetry_enabled": true,
+  "render_settings": null,
+  "timestamp": "2026-02-27T22:43:16.489302+00:00",
+  "conditions": [
+    {
+      "name": "Orthogonal Views Only - Dynamic Action Baseline",
+      "prompt": "A photorealistic full-body shot of Kaelen, the Crimson Blade, in his intricate armor, mid-air, leaping over a gnarled log with his ornate sword raised, set in a dense, ancient forest at dusk. The scene is illuminated by the last rays of a fiery sunset piercing through the canopy, creating a heroic and determined atmosphere. Captured with a wide-angle prime lens (24mm, f/2.8), emphasizing the worn leather textures of his gauntlets and the metallic sheen of his blade.",
+      "upload_plan": [
+        7,
+        8,
+        9,
+        10,
+        11
+      ]
+    },
+    {
+      "name": "5th View: 3/4 Back View - Dynamic Action",
+      "prompt": "A photorealistic low-angle shot of Kaelen, the Crimson Blade, in his intricate armor, vaulting over a crumbling stone wall with intense focus, his cape billowing behind him, set in a ruined, overgrown castle courtyard under a stormy sky. The scene is illuminated by dramatic lightning flashes and the faint glow of distant torches, creating a tense and adventurous atmosphere. Captured with a telephoto lens (70-200mm, f/4), emphasizing the intricate patterns on his shoulder pauldron and the dynamic flow of his crimson cape.",
+      "upload_plan": [
+        7,
+        8,
+        9,
+        10,
+        15
+      ]
+    },
+    {
+      "name": "5th View: Face Close-up (Angry) - Expression Focus",
+      "prompt": "A photorealistic extreme close-up of Kaelen, the Crimson Blade's face, frowning deeply with gritted teeth, eyes narrowed in fierce determination, set in a shadowy, torch-lit cavern. The scene is illuminated by flickering orange torchlight casting deep shadows, creating a menacing and intense atmosphere. Captured with a macro lens (100mm, f/2.8), emphasizing the fine lines of his scowl and the glint in his focused eyes.",
+      "upload_plan": [
+        7,
+        9,
+        8,
+        10,
+        12
+      ]
+    },
+    {
+      "name": "5th View: Face Close-up (Smiling) - Expression Focus",
+      "prompt": "A photorealistic medium close-up of Kaelen, the Crimson Blade's face, grinning confidently, a mischievous twinkle in his eyes, set in a sun-drenched, bustling market square. The scene is illuminated by bright, warm midday sun from above, creating a joyful and approachable atmosphere. Captured with a portrait lens (85mm, f/1.8), emphasizing the subtle crinkles around his eyes and the texture of his well-maintained beard.",
+      "upload_plan": [
+        7,
+        8,
+        9,
+        10,
+        13
+      ]
+    },
+    {
+      "name": "5th View: Dynamic Full Body Pose - Complex Action",
+      "prompt": "A photorealistic dynamic wide shot of Kaelen, the Crimson Blade, in his full battle gear, executing a powerful spin kick against an unseen foe, his body twisted in mid-air, set in a desolate, wind-swept mountain pass at dawn. The scene is illuminated by cold, ethereal pre-dawn light filtering through jagged peaks, creating a fierce and majestic atmosphere. Captured with a fast prime lens (35mm, f/1.4), emphasizing the intricate articulation of his leg armor and the sheer force of his movement.",
+      "upload_plan": [
+        7,
+        8,
+        9,
+        10,
+        14
+      ]
+    },
+    {
+      "name": "Wider Portrait With Armor",
+      "prompt": "A photorealistic low-angle shot of Kaelen, the Crimson Blade, in his intricate armor, vaulting over a crumbling stone wall with intense focus, his cape billowing behind him, set in a ruined, overgrown castle courtyard under a stormy sky. The scene is illuminated by dramatic lightning flashes and the faint glow of distant torches, creating a tense and adventurous atmosphere. Captured with a telephoto lens (70-200mm, f/4), emphasizing the intricate patterns on his shoulder pauldron and the dynamic flow of his crimson cape.",
+      "upload_plan": [
+        7,
+        8,
+        9,
+        10,
+        11,
+        6
+      ]
+    }
+  ],
+  "run_count": 54
+}

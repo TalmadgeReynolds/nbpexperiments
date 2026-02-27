@@ -23,7 +23,7 @@ class Experiment(Base):
         Boolean, default=False, nullable=False
     )
     model_name: Mapped[str] = mapped_column(
-        String(100), nullable=False, default="gemini-3-pro-image"
+        String(100), nullable=False, default="gemini-3-pro-image-preview"
     )
     render_settings: Mapped[dict | None] = mapped_column(JSON, nullable=True)
     created_at: Mapped[datetime] = mapped_column(

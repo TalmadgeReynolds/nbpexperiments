@@ -12,7 +12,7 @@ export default function ExperimentsPage() {
     name: '',
     hypothesis: '',
     telemetry_enabled: false,
-    model_name: 'nano-banana-pro',
+    model_name: 'gemini-3-pro-image-preview',
   });
 
   const load = async () => {
@@ -32,7 +32,7 @@ export default function ExperimentsPage() {
     if (!form.name.trim()) return;
     try {
       await createExperiment(form);
-      setForm({ name: '', hypothesis: '', telemetry_enabled: false, model_name: 'nano-banana-pro' });
+      setForm({ name: '', hypothesis: '', telemetry_enabled: false, model_name: 'gemini-3-pro-image-preview' });
       setShowForm(false);
       load();
     } catch (e) {
@@ -72,7 +72,7 @@ export default function ExperimentsPage() {
           <div className="form-row">
             <label>Model</label>
             <input
-              value={form.model_name ?? 'nano-banana-pro'}
+              value={form.model_name ?? 'gemini-3-pro-image-preview'}
               onChange={(e) => setForm({ ...form, model_name: e.target.value })}
             />
           </div>

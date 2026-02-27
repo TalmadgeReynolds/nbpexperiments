@@ -55,7 +55,15 @@ async def run_experiment(
     all_asset_ids: set[int] = set()
     for cond in conditions:
         if cond.upload_plan:
-            all_asset_ids.update(cond.upload_plan)
+            for item in cond.upload_plan:
+                if isinstance(item, dict):
+                    # Legacy slot-aware format: {"slot": 1, "asset_id": 7}
+                    aid = item.get("asset_id")
+                    if aid is not None:
+                        all_asset_ids.add(int(aid))
+                else:
+                    # Flat format: just an int (current standard)
+                    all_asset_ids.add(int(item))
 
     if all_asset_ids:
         assets_result = await db.execute(

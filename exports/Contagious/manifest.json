@@ -1,0 +1,40 @@
+{
+  "experiment_name": "Contagious",
+  "hypothesis": "How \u201ccontagious\u201d is realism in NBP? Or do hard/tactile materials and textures improve biological realism?",
+  "model": "nano-banana-pro",
+  "telemetry_enabled": true,
+  "render_settings": null,
+  "timestamp": "2026-02-27T17:45:19.331373+00:00",
+  "conditions": [
+    {
+      "name": "Baseline - Detailed Biological, Detailed Background, No Interaction",
+      "prompt": "Close-up of a human hand and forearm, resting gently on a perfectly rendered wooden table with natural grain. Focus on the intricate skin texture, fine arm hair, and the subtle imperfections of the fingernails. The background shows a detailed, crumbling brick wall in soft focus. Photorealistic.",
+      "upload_plan": null
+    },
+    {
+      "name": "General Stone Interaction - Hand with General Stone, Detailed Background",
+      "prompt": "Close-up of a human hand and forearm, gripping a rough, weathered stone block. The stone is a generic realistic texture. Focus on the intricate skin texture, fine arm hair, and the subtle imperfections of the fingernails. The background shows a detailed, crumbling brick wall in soft focus. Photorealistic.",
+      "upload_plan": null
+    },
+    {
+      "name": "Specific Stone Realism - Hand with Detailed Stone, Detailed Background",
+      "prompt": "Close-up of a human hand and forearm, gripping a block of rough, weathered granite. Emphasize the granular texture of the stone, its sharp edges, and the subtle variations in color from mineral deposits. Focus on the intricate skin texture, fine arm hair, and the subtle imperfections of the fingernails. The background shows a detailed, crumbling brick wall in soft focus. Photorealistic.",
+      "upload_plan": null
+    },
+    {
+      "name": "Specific Stone & Biological Realism - Hand with Detailed Stone, Detailed Hand, Detailed Background",
+      "prompt": "Extreme close-up of a human hand and forearm, tightly gripping a block of rough, weathered sandstone. Emphasize the distinct, porous texture of the sandstone, its eroded pits, and the sharp, irregular facets. Focus intensely on the individual pores of the skin, the microscopic hair follicles, and the translucent quality of the fingernails with visible lunulae. The background shows a detailed, crumbling brick wall in soft focus. Ultra-photorealistic, macro photography style.",
+      "upload_plan": [
+        3
+      ]
+    },
+    {
+      "name": "Specific Stone & Biological Realism, Minimal Background",
+      "prompt": "Extreme close-up of a human hand and forearm, tightly gripping a block of rough, weathered granite. Emphasize the granular texture of the stone, its sharp edges, and the subtle variations in color from mineral deposits. Focus intensely on the individual pores of the skin, the microscopic hair follicles, and the translucent quality of the fingernails with visible lunulae. Simple, out-of-focus background. Ultra-photorealistic, macro photography style.",
+      "upload_plan": [
+        3
+      ]
+    }
+  ],
+  "run_count": 15
+}

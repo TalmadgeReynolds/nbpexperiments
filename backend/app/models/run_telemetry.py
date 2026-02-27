@@ -33,4 +33,12 @@ class RunTelemetry(Base):
         String(20), nullable=True
     )  # "valid", "invalid", or None
 
+    # ── Upload-order telemetry fields ────────────────────────────────
+    intended_upload_order_json: Mapped[dict | None] = mapped_column(
+        JSON, nullable=True
+    )  # The ordered list of asset IDs sent to the API
+    allocation_analysis_json: Mapped[dict | None] = mapped_column(
+        JSON, nullable=True
+    )  # Observational analysis of how the model weighted each image
+
     run: Mapped[Run] = relationship("Run", back_populates="telemetry")

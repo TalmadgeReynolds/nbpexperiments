@@ -23,6 +23,7 @@ from backend.app.models.condition import Condition
 from backend.app.models.experiment import Experiment
 from backend.app.models.run import Run, RunStatusEnum
 from backend.app.models.run_telemetry import RunTelemetry
+from backend.app.services.slots import parse_upload_plan
 from backend.app.telemetry.extractor import process_telemetry
 
 logger = logging.getLogger(__name__)
@@ -37,7 +38,7 @@ SyncSession = sessionmaker(_sync_engine, class_=Session, expire_on_commit=False)
 OUTPUT_DIR = Path(settings.upload_dir) / "outputs"
 
 # Nano Banana Pro API endpoint (Gemini imagen)
-NBP_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-3-pro-image:generateContent"
+NBP_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-3-pro-image-preview:generateContent"
 
 
 def execute_run(run_id: int) -> None:
@@ -74,16 +75,19 @@ def execute_run(run_id: int) -> None:
         telemetry_on = experiment.telemetry_enabled
 
         try:
-            # 2. Build request
+            # 2. Parse upload plan (ordered list of asset IDs)
+            ordered_asset_ids = parse_upload_plan(condition.upload_plan) or []
+
+            # 3. Build request
             result = _call_nano_banana_pro(
                 prompt=condition.prompt,
-                upload_plan=condition.upload_plan or [],
+                upload_plan=ordered_asset_ids,
                 model_name=experiment.model_name,
                 render_settings=experiment.render_settings,
                 telemetry_on=telemetry_on,
             )
 
-            # 3. Store output image
+            # 4. Store output image
             OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
             image_filename = f"run_{run.id}.png"
             image_path = OUTPUT_DIR / image_filename
@@ -94,13 +98,16 @@ def execute_run(run_id: int) -> None:
 
             run.latency_ms = result.get("latency_ms")
 
-            # 4. Telemetry — HARD INVARIANT: only when ON
+            # 5. Telemetry — HARD INVARIANT: only when ON
             if telemetry_on:
                 telemetry_data = result.get("telemetry", {})
                 raw_thought = telemetry_data.get("thought_summary_raw")
 
                 # Use the telemetry extraction service for signature + allocation
-                extracted = process_telemetry(raw_thought)
+                extracted = process_telemetry(
+                    raw_thought,
+                    upload_order=ordered_asset_ids or None,
+                )
 
                 telem = RunTelemetry(
                     run_id=run.id,
@@ -112,6 +119,8 @@ def execute_run(run_id: int) -> None:
                     latency_ms=result.get("latency_ms"),
                     allocation_report_json=extracted["allocation_report"],
                     allocation_parse_status=extracted["allocation_parse_status"],
+                    intended_upload_order_json=ordered_asset_ids or None,
+                    allocation_analysis_json=extracted.get("allocation_analysis"),
                 )
                 db.add(telem)
 
@@ -175,9 +184,9 @@ def _call_nano_banana_pro(
     if render_settings:
         payload["generationConfig"].update(render_settings)
 
-    # If telemetry ON, request thinking/thoughts
-    if telemetry_on:
-        payload["generationConfig"]["includeThoughts"] = True
+    # NOTE: gemini-3-pro-image-preview does NOT support thinkingConfig / includeThoughts.
+    # Telemetry we CAN capture: usageMetadata, safetyRatings, latency — all
+    # returned naturally in the response without any special request field.
 
     start = time.monotonic()
     with httpx.Client(timeout=120.0) as client:
@@ -199,15 +208,16 @@ def _call_nano_banana_pro(
     body = resp.json()
 
     # Extract image and telemetry from response
+    # NOTE: Gemini REST API returns camelCase keys (inlineData, not inline_data)
     candidates = body.get("candidates", [])
     if candidates:
         candidate = candidates[0]
         content = candidate.get("content", {})
         for part in content.get("parts", []):
-            # Image data
-            if "inline_data" in part:
+            # Image data (camelCase key from Gemini API)
+            if "inlineData" in part:
                 result["image_bytes"] = base64.b64decode(
-                    part["inline_data"]["data"]
+                    part["inlineData"]["data"]
                 )
             # Thought summary (telemetry)
             if telemetry_on and "thought" in part:

@@ -34,15 +34,10 @@ export default function ResultsPage() {
       for (const id of ids) {
         try {
           const run = await getRun(id);
-          let score: Score | null = null;
-          try {
-            score = await getScore(id);
-          } catch {
-            /* no score yet */
-          }
+          const score = await getScore(id);
           results.push({ run, score });
         } catch {
-          /* skip missing */
+          /* skip missing run */
         }
       }
       setItems(results);
@@ -110,19 +105,18 @@ export default function ResultsPage() {
                 {run.latency_ms != null && ` · ${run.latency_ms}ms`}
               </p>
 
-              {/* Output image placeholder */}
+              {/* Output image */}
               {run.output_image_path ? (
-                <div
+                <img
+                  src={`/${run.output_image_path}`}
+                  alt={`Run ${run.id} output`}
                   style={{
-                    background: 'var(--bg)',
+                    width: '100%',
                     borderRadius: 6,
-                    padding: '2rem',
-                    textAlign: 'center',
                     marginBottom: '0.75rem',
+                    display: 'block',
                   }}
-                >
-                  <span className="text-sm text-muted">🖼 {run.output_image_path.split('/').pop()}</span>
-                </div>
+                />
               ) : (
                 <div
                   style={{

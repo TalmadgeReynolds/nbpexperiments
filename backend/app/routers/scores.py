@@ -38,15 +38,13 @@ async def create_score(
     return score
 
 
-@router.get("/runs/{run_id}/score", response_model=ScoreRead)
+@router.get("/runs/{run_id}/score", response_model=ScoreRead | None)
 async def get_score(
     run_id: int,
     db: AsyncSession = Depends(get_db),
 ):
-    """Get the score for a run."""
+    """Get the score for a run. Returns null if not yet scored."""
     score = (
         await db.execute(select(Score).where(Score.run_id == run_id))
     ).scalar_one_or_none()
-    if not score:
-        raise HTTPException(status_code=404, detail="Score not found for this run")
     return score

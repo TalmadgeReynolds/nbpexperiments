@@ -6,6 +6,7 @@ class Settings(BaseSettings):
     database_url_sync: str = "postgresql://nbplab:nbplab@localhost:5432/nbplab"
     redis_url: str = "redis://localhost:6379/0"
     gemini_api_key: str = ""
+    anthropic_api_key: str = ""
     telemetry_default: bool = False
     upload_dir: str = "uploads"
     export_dir: str = "exports"

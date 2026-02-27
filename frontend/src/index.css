@@ -224,3 +224,23 @@ th {
 .text-warning { color: var(--warning); }
 .text-danger { color: var(--danger); }
 .mono { font-family: 'JetBrains Mono', monospace; }
+
+/* Spinner for loading states */
+.spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Collapsible details arrow */
+details summary::-webkit-details-marker { display: none; }
+details .details-arrow { transition: transform 0.15s ease; }
+details[open] .details-arrow { transform: rotate(90deg); }
+details.card { overflow: hidden; }
+details.card + details.card { margin-top: 8px; }

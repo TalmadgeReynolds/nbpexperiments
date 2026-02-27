@@ -107,3 +107,181 @@ A  scripts/run.sh
 2026-02-27 17:11:07,714 - INFO - Command successful: git diff --name-only
 2026-02-27 17:11:07,714 - WARNING - Found unstaged changes after git add, attempting to stage them
 2026-02-27 17:11:07,714 - INFO - Executing command: git add .
+2026-02-27 17:11:07,722 - INFO - Command successful: git add .
+2026-02-27 17:11:07,723 - INFO - Checking for sensitive information in staged changes...
+2026-02-27 17:11:07,723 - INFO - Executing command: git diff --cached --name-only
+2026-02-27 17:11:07,742 - INFO - Command successful: git diff --cached --name-only
+2026-02-27 17:11:10,918 - INFO - User chose to proceed despite sensitive information warnings
+2026-02-27 17:11:10,920 - INFO - Preparing to commit with default message: Update 2026-02-27 17:11
+2026-02-27 17:11:21,534 - INFO - Using commit message: Functioning NBP image analyzer and experiment builder
+2026-02-27 17:11:21,534 - INFO - Executing command: git commit -m "Functioning NBP image analyzer and experiment builder"
+2026-02-27 17:11:21,633 - INFO - Command successful: git commit -m "Functioning NBP image analyzer and experiment builder"
+2026-02-27 17:11:21,633 - INFO - Commit successful
+2026-02-27 17:11:21,633 - INFO - Commit details: [feature-20260227-1711 ce9afa9] Functioning NBP image analyzer and experiment builder
+ 75 files changed, 7513 insertions(+), 283 deletions(-)
+ delete mode 100644  NBP Lab.md
+ create mode 100644 .github/copilot-instructions.md
+ create mode 100644 .gitignore
+ create mode 100644 Implementation Blueprint.md
+ create mode 100644 backend/__init__.py
+ create mode 100644 backend/alembic.ini
+ create mode 100644 backend/app/__init__.py
+ create mode 100644 backend/app/config.py
+ create mode 100644 backend/app/db.py
+ create mode 100644 backend/app/export/__init__.py
+ create mode 100644 backend/app/export/exporter.py
+ create mode 100644 backend/app/main.py
+ create mode 100644 backend/app/models/__init__.py
+ create mode 100644 backend/app/models/asset.py
+ create mode 100644 backend/app/models/asset_qc.py
+ create mode 100644 backend/app/models/condition.py
+ create mode 100644 backend/app/models/experiment.py
+ create mode 100644 backend/app/models/run.py
+ create mode 100644 backend/app/models/run_telemetry.py
+ create mode 100644 backend/app/models/score.py
+ create mode 100644 backend/app/qc/__init__.py
+ create mode 100644 backend/app/qc/gemini.py
+ create mode 100644 backend/app/routers/__init__.py
+ create mode 100644 backend/app/routers/assets.py
+ create mode 100644 backend/app/routers/conditions.py
+ create mode 100644 backend/app/routers/experiments.py
+ create mode 100644 backend/app/routers/export.py
+ create mode 100644 backend/app/routers/runs.py
+ create mode 100644 backend/app/routers/scores.py
+ create mode 100644 backend/app/schemas/__init__.py
+ create mode 100644 backend/app/schemas/asset.py
+ create mode 100644 backend/app/schemas/experiment.py
+ create mode 100644 backend/app/schemas/run.py
+ create mode 100644 backend/app/schemas/score.py
+ create mode 100644 backend/app/scoring/__init__.py
+ create mode 100644 backend/app/services/__init__.py
+ create mode 100644 backend/app/services/runner.py
+ create mode 100644 backend/app/telemetry/__init__.py
+ create mode 100644 backend/app/telemetry/extractor.py
+ create mode 100644 backend/migrations/env.py
+ create mode 100644 backend/migrations/script.py.mako
+ create mode 100644 backend/migrations/versions/.gitkeep
+ create mode 100644 backend/migrations/versions/fe131c9325a0_initial_schema.py
+ create mode 100644 backend/requirements.txt
+ create mode 100644 backend/tests/__init__.py
+ create mode 100644 backend/tests/conftest.py
+ create mode 100644 backend/tests/test_assets.py
+ create mode 100644 backend/tests/test_experiments.py
+ create mode 100644 backend/tests/test_export.py
+ create mode 100644 backend/tests/test_scores.py
+ create mode 100644 backend/tests/test_telemetry.py
+ create mode 100644 exports/Run Test/image_grid.png
+ create mode 100644 exports/Run Test/manifest.json
+ create mode 100644 exports/Run Test/scores.csv
+ create mode 100644 frontend/index.html
+ create mode 100644 frontend/package-lock.json
+ create mode 100644 frontend/package.json
+ create mode 100644 frontend/src/App.tsx
+ create mode 100644 frontend/src/api/client.ts
+ create mode 100644 frontend/src/index.css
+ create mode 100644 frontend/src/main.tsx
+ create mode 100644 frontend/src/pages/AssetsPage.tsx
+ create mode 100644 frontend/src/pages/ExperimentDetailPage.tsx
+ create mode 100644 frontend/src/pages/ExperimentsPage.tsx
+ create mode 100644 frontend/src/pages/ExportPage.tsx
+ create mode 100644 frontend/src/pages/ResultsPage.tsx
+ create mode 100644 frontend/src/pages/RunMonitorPage.tsx
+ create mode 100644 frontend/src/types.ts
+ create mode 100644 frontend/src/vite-env.d.ts
+ create mode 100644 frontend/tsconfig.json
+ create mode 100644 frontend/vite.config.ts
+ create mode 100644 git-push-new-branch.py
+ create mode 100644 git_branch.log
+ create mode 100755 scripts/run.sh
+2026-02-27 17:11:21,634 - INFO - Getting current branch...
+2026-02-27 17:11:21,635 - INFO - Executing command: git rev-parse --abbrev-ref HEAD
+2026-02-27 17:11:21,648 - INFO - Command successful: git rev-parse --abbrev-ref HEAD
+2026-02-27 17:11:21,649 - INFO - Current branch: feature-20260227-1711
+2026-02-27 17:11:21,649 - INFO - Pushing branch feature-20260227-1711 to remote...
+2026-02-27 17:11:22,901 - INFO - Successfully pushed changes to feature-20260227-1711
+2026-02-27 17:11:22,901 - INFO - Getting current branch...
+2026-02-27 17:11:22,901 - INFO - Executing command: git rev-parse --abbrev-ref HEAD
+2026-02-27 17:11:22,906 - INFO - Command successful: git rev-parse --abbrev-ref HEAD
+2026-02-27 17:11:22,906 - INFO - Current branch: feature-20260227-1711
+2026-02-27 17:11:24,712 - INFO - === GIT NEW BRANCH SCRIPT COMPLETED SUCCESSFULLY ===
+2026-02-27 22:45:21,466 - INFO - === GIT NEW BRANCH SCRIPT STARTED ===
+2026-02-27 22:45:21,466 - INFO - Checking Git status for changes...
+2026-02-27 22:45:21,466 - INFO - Executing command: git status --porcelain
+2026-02-27 22:45:21,474 - INFO - Command successful: git status --porcelain
+2026-02-27 22:45:21,475 - INFO - Found 32 changed file(s)
+2026-02-27 22:45:21,475 - INFO - Changes detected in 32 file(s)
+2026-02-27 22:45:21,476 - INFO - Getting current branch...
+2026-02-27 22:45:21,476 - INFO - Executing command: git rev-parse --abbrev-ref HEAD
+2026-02-27 22:45:21,485 - INFO - Command successful: git rev-parse --abbrev-ref HEAD
+2026-02-27 22:45:21,485 - INFO - Current branch: feature-20260227-1711
+2026-02-27 22:45:21,485 - INFO - Current branch: feature-20260227-1711
+2026-02-27 22:45:21,486 - INFO - Suggesting branch name: feature-20260227-2245
+2026-02-27 22:45:23,522 - INFO - No name provided, using suggested name: feature-20260227-2245
+2026-02-27 22:45:23,522 - INFO - Executing command: git branch
+2026-02-27 22:45:23,529 - INFO - Command successful: git branch
+2026-02-27 22:45:23,529 - INFO - Creating new branch: feature-20260227-2245
+2026-02-27 22:45:23,530 - INFO - Executing command: git checkout -b feature-20260227-2245
+2026-02-27 22:45:23,762 - INFO - Command successful: git checkout -b feature-20260227-2245
+2026-02-27 22:45:23,762 - INFO - Successfully created and switched to branch: feature-20260227-2245
+2026-02-27 22:45:23,763 - INFO - Using branch: feature-20260227-2245
+2026-02-27 22:45:25,511 - INFO - Safe mode enabled - will check for sensitive information
+2026-02-27 22:45:25,511 - INFO - Staging changes...
+2026-02-27 22:45:25,511 - INFO - Executing command: git status --porcelain
+2026-02-27 22:45:25,522 - INFO - Command successful: git status --porcelain
+2026-02-27 22:45:25,522 - INFO - Executing command: git add .
+2026-02-27 22:45:25,739 - INFO - Command successful: git add .
+2026-02-27 22:45:25,739 - INFO - Successfully staged changes
+2026-02-27 22:45:25,740 - INFO - Executing command: git status -s
+2026-02-27 22:45:25,752 - INFO - Command successful: git status -s
+2026-02-27 22:45:25,752 - INFO - Staged files: 
+M  backend/app/config.py
+M  backend/app/main.py
+M  backend/app/models/experiment.py
+M  backend/app/models/run_telemetry.py
+M  backend/app/qc/gemini.py
+A  backend/app/routers/advisor.py
+M  backend/app/routers/assets.py
+M  backend/app/routers/conditions.py
+M  backend/app/routers/runs.py
+M  backend/app/routers/scores.py
+A  backend/app/routers/slots.py
+A  backend/app/schemas/advisor.py
+M  backend/app/schemas/experiment.py
+A  backend/app/services/ai_client.py
+A  backend/app/services/hypothesis_advisor.py
+M  backend/app/services/runner.py
+A  backend/app/services/slots.py
+M  backend/app/telemetry/extractor.py
+A  backend/migrations/versions/5b77a1c3f39e_add_slot_telemetry_columns.py
+A  backend/migrations/versions/a3c8e7f21b04_rename_slot_to_upload_order_columns.py
+A  "exports/Best 5th View/allocation_reports.jsonl"
+A  "exports/Best 5th View/image_grid.png"
+A  "exports/Best 5th View/manifest.json"
+A  "exports/Best 5th View/runs/5th View_ 3_4 Back View - Dynamic Action_run0.png"
+A  "exports/Best 5th View/runs/5th View_ Dynamic Full Body Pose - Complex Action_run0.png"
+A  "exports/Best 5th View/runs/5th View_ Face Close-up _Angry_ - Expression Focus_run0.png"
+A  "exports/Best 5th View/runs/5th View_ Face Close-up _Smiling_ - Expression Focus_run0.png"
+A  "exports/Best 5th View/runs/Orthogonal Views Only - Dynamic Action Baseline_run0.png"
+A  "exports/Best 5th View/runs/Wider Portrait With Armor_run0.png"
+A  "exports/Best 5th View/scores.csv"
+A  "exports/Best 5th View/telemetry_appendix.csv"
+A  exports/Contagious/image_grid.png
+A  exports/Contagious/manifest.json
+A  exports/Contagious/scores.csv
+M  frontend/src/api/client.ts
+A  frontend/src/components/ConditionRefBuilder.tsx
+A  frontend/src/components/HypothesisAdvisor.tsx
+A  frontend/src/components/ProviderPicker.tsx
+A  frontend/src/components/SlotPicker.tsx
+M  frontend/src/index.css
+M  frontend/src/pages/AssetsPage.tsx
+M  frontend/src/pages/ExperimentDetailPage.tsx
+M  frontend/src/pages/ExperimentsPage.tsx
+M  frontend/src/pages/ResultsPage.tsx
+M  frontend/src/types.ts
+M  frontend/vite.config.ts
+MM git_branch.log
+2026-02-27 22:45:25,752 - INFO - Executing command: git diff --name-only
+2026-02-27 22:45:25,758 - INFO - Command successful: git diff --name-only
+2026-02-27 22:45:25,758 - WARNING - Found unstaged changes after git add, attempting to stage them
+2026-02-27 22:45:25,759 - INFO - Executing command: git add .

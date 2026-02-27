@@ -1,12 +1,14 @@
 import { useEffect, useState, useRef } from 'react';
 import { getAssets, uploadAsset, analyzeAsset } from '../api/client';
-import type { Asset } from '../types';
+import type { Asset, AIProvider } from '../types';
+import ProviderPicker from '../components/ProviderPicker';
 
 export default function AssetsPage() {
   const [assets, setAssets] = useState<Asset[]>([]);
   const [loading, setLoading] = useState(true);
   const [uploading, setUploading] = useState(false);
   const [analyzingId, setAnalyzingId] = useState<number | null>(null);
+  const [provider, setProvider] = useState<AIProvider>('gemini');
   const fileRef = useRef<HTMLInputElement>(null);
 
   const load = async () => {
@@ -39,7 +41,7 @@ export default function AssetsPage() {
   const handleAnalyze = async (id: number) => {
     setAnalyzingId(id);
     try {
-      await analyzeAsset(id);
+      await analyzeAsset(id, provider);
       load();
     } catch (e) {
       alert(String(e));
@@ -50,7 +52,10 @@ export default function AssetsPage() {
 
   return (
     <>
-      <h1>Assets &amp; Reference QC</h1>
+      <div className="flex justify-between items-center">
+        <h1>Assets &amp; Reference QC</h1>
+        <ProviderPicker value={provider} onChange={setProvider} />
+      </div>
 
       {/* Upload */}
       <div className="card mt-2">
@@ -111,7 +116,17 @@ export default function AssetsPage() {
                       onClick={() => handleAnalyze(a.id)}
                       disabled={analyzingId === a.id}
                     >
-                      {analyzingId === a.id ? 'Analyzing…' : 'Analyze'}
+                      {analyzingId === a.id ? 'Analyzing…' : `Analyze (${provider})`}
+                    </button>
+                  )}
+                  {a.qc && (
+                    <button
+                      className="secondary"
+                      onClick={() => handleAnalyze(a.id)}
+                      disabled={analyzingId === a.id}
+                      style={{ fontSize: '0.72rem', padding: '2px 8px' }}
+                    >
+                      {analyzingId === a.id ? '…' : `Re-analyze (${provider})`}
                     </button>
                   )}
                 </td>
@@ -128,14 +143,30 @@ export default function AssetsPage() {
           {assets
             .filter((a) => a.qc)
             .map((a) => (
-              <div key={a.id} className="card">
-                <h2>
-                  Asset #{a.id} — {a.qc!.role_guess}
+              <details key={a.id} className="card" style={{ padding: 0 }}>
+                <summary
+                  style={{
+                    padding: '10px 16px',
+                    cursor: 'pointer',
+                    listStyle: 'none',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 8,
+                    userSelect: 'none',
+                  }}
+                >
+                  <span style={{ transition: 'transform 0.15s', display: 'inline-block' }} className="details-arrow">▶</span>
+                  <strong style={{ fontSize: '0.92rem' }}>
+                    Asset #{a.id} — {a.qc!.role_guess}
+                  </strong>
+                  <span className="mono text-sm text-muted" style={{ marginLeft: 4 }}>
+                    conf {(a.qc!.role_confidence * 100).toFixed(0)}%
+                  </span>
                   {a.qc!.ambiguity_score > 0.5 && (
                     <span className="text-warning text-sm"> ⚠ High ambiguity</span>
                   )}
-                </h2>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
+                </summary>
+                <div style={{ padding: '0 16px 16px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
                   {a.qc!.quality_json && (
                     <div>
                       <label>Quality</label>
@@ -177,7 +208,7 @@ export default function AssetsPage() {
                     </div>
                   )}
                 </div>
-              </div>
+              </details>
             ))}
         </div>
       )}

@@ -1,24 +1,20 @@
-"""Gemini Vision Reference QC service.
+"""Reference QC analysis service — supports Gemini and Claude.
 
-Sends a reference image to the Gemini Vision API with a structured JSON schema
+Sends a reference image to the chosen AI provider with a structured JSON schema
 prompt.  Returns parsed fields that map directly to the AssetQC model columns.
 """
 
 from __future__ import annotations
 
-import base64
 import json
 import logging
-from pathlib import Path
 from typing import Any
 
-import httpx
-
-from backend.app.config import settings
+from backend.app.services.ai_client import Provider, call_vision
 
 logger = logging.getLogger(__name__)
 
-# ── Prompt that instructs Gemini to return structured analysis ──────
+# ── Prompt that instructs the model to return structured analysis ───
 
 ANALYSIS_PROMPT = """\
 You are an image analysis system for a controlled experiment engine.
@@ -70,8 +66,6 @@ Do not include any text outside the JSON block.
 }
 """
 
-GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent"
-
 VALID_ROLES = {
     "human_identity",
     "object_fidelity",
@@ -83,80 +77,37 @@ VALID_ROLES = {
 }
 
 
-async def analyze_image(image_path: str) -> dict[str, Any]:
-    """Send an image to Gemini Vision and return structured QC analysis.
+async def analyze_image(
+    image_path: str,
+    provider: str = "gemini",
+) -> dict[str, Any]:
+    """Send an image to the chosen AI provider and return structured QC analysis.
+
+    Parameters
+    ----------
+    image_path : str
+        Path to the image file on disk.
+    provider : str
+        ``"gemini"`` or ``"claude"``.
 
     Returns a dict with keys: role_guess, role_confidence, ambiguity_score,
     quality, face, environment, lighting, style.
 
     Raises ``RuntimeError`` on API or parsing failure.
     """
-    path = Path(image_path)
-    if not path.exists():
-        raise RuntimeError(f"Image file not found: {image_path}")
+    ai_provider = Provider(provider)
 
-    image_bytes = path.read_bytes()
-    b64_image = base64.b64encode(image_bytes).decode()
-
-    # Determine MIME type from extension
-    suffix = path.suffix.lower()
-    mime_map = {
-        ".png": "image/png",
-        ".jpg": "image/jpeg",
-        ".jpeg": "image/jpeg",
-        ".webp": "image/webp",
-        ".gif": "image/gif",
-    }
-    mime_type = mime_map.get(suffix, "image/png")
-
-    payload = {
-        "contents": [
-            {
-                "parts": [
-                    {"text": ANALYSIS_PROMPT},
-                    {
-                        "inline_data": {
-                            "mime_type": mime_type,
-                            "data": b64_image,
-                        }
-                    },
-                ]
-            }
-        ],
-        "generationConfig": {
-            "temperature": 0.1,
-            "maxOutputTokens": 2048,
-        },
-    }
-
-    api_key = settings.gemini_api_key
-    if not api_key:
-        raise RuntimeError(
-            "GEMINI_API_KEY not set — cannot run Reference QC analysis"
-        )
-
-    async with httpx.AsyncClient(timeout=60.0) as client:
-        resp = await client.post(
-            f"{GEMINI_API_URL}?key={api_key}",
-            json=payload,
-        )
-
-    if resp.status_code != 200:
-        raise RuntimeError(
-            f"Gemini API error {resp.status_code}: {resp.text[:500]}"
-        )
-
-    # Extract text from response
-    body = resp.json()
-    try:
-        text = body["candidates"][0]["content"]["parts"][0]["text"]
-    except (KeyError, IndexError) as exc:
-        raise RuntimeError(f"Unexpected Gemini response structure: {exc}")
+    raw = await call_vision(
+        ai_provider,
+        ANALYSIS_PROMPT,
+        image_path,
+        temperature=0.1,
+        max_tokens=4096,
+    )
 
     # Parse JSON — strip markdown fences if present
-    text = text.strip()
+    text = raw.strip()
     if text.startswith("```"):
-        # Remove ```json ... ``` wrapper
         lines = text.split("\n")
         lines = [l for l in lines if not l.strip().startswith("```")]
         text = "\n".join(lines)
@@ -164,7 +115,10 @@ async def analyze_image(image_path: str) -> dict[str, Any]:
     try:
         data = json.loads(text)
     except json.JSONDecodeError as exc:
-        raise RuntimeError(f"Failed to parse Gemini JSON response: {exc}\nRaw: {text[:500]}")
+        raise RuntimeError(
+            f"Failed to parse {provider} JSON response: {exc}\n"
+            f"Raw (first 500 chars): {text[:500]}"
+        )
 
     return _normalize(data)
 

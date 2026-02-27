@@ -1,0 +1,13 @@
+run_id,condition,repeat_index,thought_signature,thinking_level,latency_ms,allocation_parse_status,thought_summary_raw
+68,Orthogonal Views Only - Dynamic Action Baseline,0,,gemini-3-pro-image-preview,28071,,
+62,Orthogonal Views Only - Dynamic Action Baseline,0,,gemini-3-pro-image-preview,23435,,
+69,5th View: 3/4 Back View - Dynamic Action,0,,gemini-3-pro-image-preview,21627,,
+63,5th View: 3/4 Back View - Dynamic Action,0,,gemini-3-pro-image-preview,23863,,
+70,5th View: Face Close-up (Angry) - Expression Focus,0,,gemini-3-pro-image-preview,24075,,
+64,5th View: Face Close-up (Angry) - Expression Focus,0,,gemini-3-pro-image-preview,24973,,
+65,5th View: Face Close-up (Smiling) - Expression Focus,0,,gemini-3-pro-image-preview,23833,,
+71,5th View: Face Close-up (Smiling) - Expression Focus,0,,gemini-3-pro-image-preview,23727,,
+72,5th View: Dynamic Full Body Pose - Complex Action,0,,gemini-3-pro-image-preview,25225,,
+66,5th View: Dynamic Full Body Pose - Complex Action,0,,gemini-3-pro-image-preview,23349,,
+67,Wider Portrait With Armor,0,,gemini-3-pro-image-preview,24608,,
+73,Wider Portrait With Armor,0,,gemini-3-pro-image-preview,23421,,
