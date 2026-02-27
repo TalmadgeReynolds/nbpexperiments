@@ -1,0 +1,109 @@
+2026-02-27 17:11:01,651 - INFO - === GIT NEW BRANCH SCRIPT STARTED ===
+2026-02-27 17:11:01,652 - INFO - Checking Git status for changes...
+2026-02-27 17:11:01,652 - INFO - Executing command: git status --porcelain
+2026-02-27 17:11:01,661 - INFO - Command successful: git status --porcelain
+2026-02-27 17:11:01,662 - INFO - Found 11 changed file(s)
+2026-02-27 17:11:01,662 - INFO - Changes detected in 11 file(s)
+2026-02-27 17:11:01,662 - INFO - Getting current branch...
+2026-02-27 17:11:01,662 - INFO - Executing command: git rev-parse --abbrev-ref HEAD
+2026-02-27 17:11:01,668 - INFO - Command successful: git rev-parse --abbrev-ref HEAD
+2026-02-27 17:11:01,668 - INFO - Current branch: main
+2026-02-27 17:11:01,668 - INFO - Current branch: main
+2026-02-27 17:11:01,668 - INFO - Suggesting branch name: feature-20260227-1711
+2026-02-27 17:11:04,283 - INFO - No name provided, using suggested name: feature-20260227-1711
+2026-02-27 17:11:04,283 - INFO - Executing command: git branch
+2026-02-27 17:11:04,293 - INFO - Command successful: git branch
+2026-02-27 17:11:04,295 - INFO - Creating new branch: feature-20260227-1711
+2026-02-27 17:11:04,296 - INFO - Executing command: git checkout -b feature-20260227-1711
+2026-02-27 17:11:04,501 - INFO - Command successful: git checkout -b feature-20260227-1711
+2026-02-27 17:11:04,502 - INFO - Successfully created and switched to branch: feature-20260227-1711
+2026-02-27 17:11:04,502 - INFO - Using branch: feature-20260227-1711
+2026-02-27 17:11:07,573 - INFO - Safe mode enabled - will check for sensitive information
+2026-02-27 17:11:07,573 - INFO - Staging changes...
+2026-02-27 17:11:07,573 - INFO - Executing command: git status --porcelain
+2026-02-27 17:11:07,596 - INFO - Command successful: git status --porcelain
+2026-02-27 17:11:07,597 - INFO - Executing command: git add .
+2026-02-27 17:11:07,688 - INFO - Command successful: git add .
+2026-02-27 17:11:07,688 - INFO - Successfully staged changes
+2026-02-27 17:11:07,688 - INFO - Executing command: git status -s
+2026-02-27 17:11:07,704 - INFO - Command successful: git status -s
+2026-02-27 17:11:07,704 - INFO - Staged files: 
+D  " NBP Lab.md"
+A  .github/copilot-instructions.md
+A  .gitignore
+A  "Implementation Blueprint.md"
+M  README.md
+A  backend/__init__.py
+A  backend/alembic.ini
+A  backend/app/__init__.py
+A  backend/app/config.py
+A  backend/app/db.py
+A  backend/app/export/__init__.py
+A  backend/app/export/exporter.py
+A  backend/app/main.py
+A  backend/app/models/__init__.py
+A  backend/app/models/asset.py
+A  backend/app/models/asset_qc.py
+A  backend/app/models/condition.py
+A  backend/app/models/experiment.py
+A  backend/app/models/run.py
+A  backend/app/models/run_telemetry.py
+A  backend/app/models/score.py
+A  backend/app/qc/__init__.py
+A  backend/app/qc/gemini.py
+A  backend/app/routers/__init__.py
+A  backend/app/routers/assets.py
+A  backend/app/routers/conditions.py
+A  backend/app/routers/experiments.py
+A  backend/app/routers/export.py
+A  backend/app/routers/runs.py
+A  backend/app/routers/scores.py
+A  backend/app/schemas/__init__.py
+A  backend/app/schemas/asset.py
+A  backend/app/schemas/experiment.py
+A  backend/app/schemas/run.py
+A  backend/app/schemas/score.py
+A  backend/app/scoring/__init__.py
+A  backend/app/services/__init__.py
+A  backend/app/services/runner.py
+A  backend/app/telemetry/__init__.py
+A  backend/app/telemetry/extractor.py
+A  backend/migrations/env.py
+A  backend/migrations/script.py.mako
+A  backend/migrations/versions/.gitkeep
+A  backend/migrations/versions/fe131c9325a0_initial_schema.py
+A  backend/requirements.txt
+A  backend/tests/__init__.py
+A  backend/tests/conftest.py
+A  backend/tests/test_assets.py
+A  backend/tests/test_experiments.py
+A  backend/tests/test_export.py
+A  backend/tests/test_scores.py
+A  backend/tests/test_telemetry.py
+A  "exports/Run Test/image_grid.png"
+A  "exports/Run Test/manifest.json"
+A  "exports/Run Test/scores.csv"
+A  frontend/index.html
+A  frontend/package-lock.json
+A  frontend/package.json
+A  frontend/src/App.tsx
+A  frontend/src/api/client.ts
+A  frontend/src/index.css
+A  frontend/src/main.tsx
+A  frontend/src/pages/AssetsPage.tsx
+A  frontend/src/pages/ExperimentDetailPage.tsx
+A  frontend/src/pages/ExperimentsPage.tsx
+A  frontend/src/pages/ExportPage.tsx
+A  frontend/src/pages/ResultsPage.tsx
+A  frontend/src/pages/RunMonitorPage.tsx
+A  frontend/src/types.ts
+A  frontend/src/vite-env.d.ts
+A  frontend/tsconfig.json
+A  frontend/vite.config.ts
+A  git-push-new-branch.py
+AM git_branch.log
+A  scripts/run.sh
+2026-02-27 17:11:07,706 - INFO - Executing command: git diff --name-only
+2026-02-27 17:11:07,714 - INFO - Command successful: git diff --name-only
+2026-02-27 17:11:07,714 - WARNING - Found unstaged changes after git add, attempting to stage them
+2026-02-27 17:11:07,714 - INFO - Executing command: git add .

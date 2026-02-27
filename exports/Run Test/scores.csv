@@ -1,0 +1,3 @@
+run_id,condition,repeat_index,status,identity,object,style,environment,hallucination,notes
+3,Cond A,0,queued,8,7,9,6,False,"Good identity preservation, slight style drift"
+4,Cond A,1,queued,,,,,,

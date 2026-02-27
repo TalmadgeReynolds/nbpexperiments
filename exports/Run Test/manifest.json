@@ -1,0 +1,16 @@
+{
+  "experiment_name": "Run Test",
+  "hypothesis": null,
+  "model": "nano-banana-pro",
+  "telemetry_enabled": false,
+  "render_settings": null,
+  "timestamp": "2026-02-27T15:24:54.498913+00:00",
+  "conditions": [
+    {
+      "name": "Cond A",
+      "prompt": "A cat in space",
+      "upload_plan": null
+    }
+  ],
+  "run_count": 2
+}

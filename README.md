@@ -29,7 +29,7 @@ Repeat runs (no single-shot claims)
 Full provenance logging
 Toggleable telemetry transparency
 Exportable, auditable research bundles
-This is not an art tool. It is a measurement tool.
+This is not an art tool.It is a measurement tool.
 
 🧱 Core Hypothesis Model (Tested, Not Assumed)
 NBP Lab is designed to test this working slot model:
